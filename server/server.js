@@ -10,7 +10,7 @@ app.get('/api/data', (req, res) => {
   // Шаг 2: Чтобы применить обновления, нужно перезапустить сервер
   //
 
-  res.set({ 'Access-Control-Allow-Origin': 'http://localhost:3000' })
+  res.set({ 'Access-Control-Allow-Origin': 'http://localhost:3001' })
 
   res.json({ message: 'Hello from backend', timestamp: Date.now() })
 })
