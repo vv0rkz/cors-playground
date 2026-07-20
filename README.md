@@ -21,3 +21,30 @@
 **Подсказка, если застрял:** preflight — это отдельный HTTP-запрос методом `OPTIONS`, который браузер посылает сам, без твоего кода. Сервер должен на него явно ответить: подтвердить origin **и** перечислить, какие методы/заголовки он разрешает в реальном запросе.
 
 **Как понять, что фикс сработал:** в Network появляется `OPTIONS`-запрос со статусом `2xx`, следом — успешный `PATCH`, ошибка в Console исчезает.
+
+---
+
+## Решение
+
+Express действительно отвечал на `OPTIONS /api/data` — но автоматическим ответом `200 OK` с заголовком `Allow: GET,HEAD,PATCH` и без единого `Access-Control-*` заголовка. Для браузера это провал preflight-проверки: он не видит подтверждения ни origin, ни метода, ни заголовка — и блокирует реальный `PATCH`, даже не отправляя его на сервер.
+
+Фикс — явный `app.options('/api/data', ...)`, который отвечает на preflight тремя заголовками:
+
+- `Access-Control-Allow-Origin` — тот же самый, что и на обычных ответах.
+- `Access-Control-Allow-Methods` — какие HTTP-методы разрешены для этого пути.
+- `Access-Control-Allow-Headers` — какие кастомные заголовки (здесь — `Content-Type`) разрешено слать в реальном запросе.
+
+```mermaid
+sequenceDiagram
+    participant B as Браузер (origin: localhost:3000)
+    participant S as Сервер (origin: localhost:4000)
+
+    B->>S: OPTIONS /api/data (preflight)
+    S-->>B: 204 + Allow-Origin/Methods/Headers
+    Note over B: Preflight пройден →<br/>браузер шлёт настоящий запрос
+    B->>S: PATCH /api/data
+    S-->>B: 200 OK + JSON + Allow-Origin
+    B->>B: .then() получает данные
+```
+
+**Вывод:** preflight существует не для всех запросов — только для «непростых» (non-simple): методы кроме `GET/HEAD/POST`, кастомные заголовки, или `Content-Type` отличный от нескольких безопасных значений. Простой `fetch(url)` из v1.0/v1.1 preflight не запускал вовсе — поэтому там всё решалось одним заголовком на самом ответе.
