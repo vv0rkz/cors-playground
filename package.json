@@ -2,9 +2,10 @@
   "name": "cors-playground",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrently \"npm:server\" \"npm:client\"",
+    "start": "concurrently \"npm:client\" \"npm:external-api\"",
     "server": "node server/server.js",
-    "client": "npx serve client -l 3000"
+    "client": "npx serve client -l 3000",
+    "external-api": "node external-api/server.js"
   },
   "dependencies": {
     "express": "^4.19.2"
