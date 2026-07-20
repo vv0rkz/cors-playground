@@ -8,9 +8,7 @@
     <pre id="output">Loading...</pre>
     <script>
       fetch('http://localhost:4000/api/data', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ note: 'update from client' }),
+        credentials: 'include',
       })
         .then((r) => r.json())
         .then((data) => {
