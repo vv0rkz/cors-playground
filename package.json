@@ -4,7 +4,7 @@
   "scripts": {
     "start": "concurrently \"npm:client\" \"npm:external-api\"",
     "server": "node server/server.js",
-    "client": "npx serve client -l 3000",
+    "client": "node client/server.js",
     "external-api": "node external-api/server.js"
   },
   "dependencies": {
