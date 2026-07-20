@@ -13,14 +13,16 @@
 ## v1.x — Диагностика и базовые CORS-ошибки
 
 - [x] **v1.0** — нет заголовка `Access-Control-Allow-Origin` — ветка `main`, теги `v1.0-broken` / `v1.0-fixed`
-- [ ] **v1.1** — заголовок есть, но origin не совпадает — ветка `v1.1` (из `v1.0-fixed`)
-- [ ] **v1.2** — preflight-запрос падает (нестандартный метод/заголовок) — ветка `v1.2` (из `v1.1-fixed`)
+- [x] **v1.1** — заголовок есть, но origin не совпадает — ветка `v1.1`, теги `v1.1-broken` / `v1.1-fixed`
+- [x] **v1.2** — preflight-запрос падает (нестандартный метод/заголовок) — ветка `v1.2`, теги `v1.2-broken` / `v1.2-fixed`
 
 ## v2.x — Credentials и множественные origin
 
-- [ ] **v2.0** — `credentials: 'include'` + wildcard origin несовместимы — ветка `v2.0` (из `v1.2-fixed`)
-- [ ] **v2.1** — whitelist для нескольких разрешённых origin — ветка `feature/whitelist` (из `v1.0-fixed`)
+- [x] **v2.0** — `credentials: 'include'` + wildcard origin несовместимы — ветка `v2.0`, теги `v2.0-broken` / `v2.0-fixed`
+- [x] **v2.1** — whitelist для нескольких разрешённых origin — ветка `feature/whitelist`, теги `v2.1-broken` / `v2.1-fixed`
 
 ## v3.x — Альтернативные способы обхода
 
-- [ ] **v3.0** — dev-proxy вместо серверных заголовков — ветка `v3.0` (из `v2.1` или `v1.2-fixed`)
+- [x] **v3.0** — dev-proxy вместо серверных заголовков — ветка `v3.0`, теги `v3.0-broken` / `v3.0-fixed`
+
+Все версии реализованы. Чтобы потренироваться: `git checkout <ветка>` → `git checkout vX.X-broken`, разбери ошибку, почини сам, сравни с `git show vX.X-fixed`.
