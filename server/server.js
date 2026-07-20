@@ -2,17 +2,20 @@ const express = require('express')
 const app = express()
 
 app.get('/api/data', (req, res) => {
-  // Шаг 1: перед отправкой JSON нужно явно разрешить браузеру
-  // делиться этим ответом с другим origin.
-  // Используй res.set(имя_заголовка, значение) — двумя строками
-  // или сразу объектом { 'Header-Name': 'value' }.
-
-  // Шаг 2: Чтобы применить обновления, нужно перезапустить сервер
-  //
-
   res.set({ 'Access-Control-Allow-Origin': 'http://localhost:3000' })
 
   res.json({ message: 'Hello from backend', timestamp: Date.now() })
+})
+
+app.patch('/api/data', (req, res) => {
+  // Шаг 1: этот роут отвечает на PATCH — браузер шлёт перед ним
+  // отдельный preflight-запрос методом OPTIONS.
+  // Заголовок Access-Control-Allow-Origin здесь тоже нужен,
+  // но одного его не хватит.
+
+  res.set({ 'Access-Control-Allow-Origin': 'http://localhost:3000' })
+
+  res.json({ message: 'Updated', timestamp: Date.now() })
 })
 
 app.listen(4000, () => {
