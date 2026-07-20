@@ -1,16 +1,13 @@
 const express = require('express')
 const app = express()
 
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173']
+
 app.get('/api/data', (req, res) => {
-  // Шаг 1: перед отправкой JSON нужно явно разрешить браузеру
-  // делиться этим ответом с другим origin.
-  // Используй res.set(имя_заголовка, значение) — двумя строками
-  // или сразу объектом { 'Header-Name': 'value' }.
-
-  // Шаг 2: Чтобы применить обновления, нужно перезапустить сервер
-  //
-
-  res.set({ 'Access-Control-Allow-Origin': 'http://localhost:3000' })
+  const requestOrigin = req.headers.origin
+  if (allowedOrigins.includes(requestOrigin)) {
+    res.set({ 'Access-Control-Allow-Origin': requestOrigin })
+  }
 
   res.json({ message: 'Hello from backend', timestamp: Date.now() })
 })
