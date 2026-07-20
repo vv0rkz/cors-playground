@@ -2,11 +2,11 @@ const express = require('express')
 const app = express()
 
 app.get('/api/data', (req, res) => {
-  // Шаг 1: чтобы разрешить сразу любой origin, проще всего
-  // поставить '*' — но фронт теперь шлёт запрос с credentials.
-
   res.cookie('session', 'demo-session-id')
-  res.set({ 'Access-Control-Allow-Origin': '*' })
+  res.set({
+    'Access-Control-Allow-Origin': 'http://localhost:3000',
+    'Access-Control-Allow-Credentials': 'true',
+  })
 
   res.json({ message: 'Hello from backend', timestamp: Date.now() })
 })
