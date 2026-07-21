@@ -1,5 +1,7 @@
 # CORS Playground — v2.1: whitelist для нескольких origin
 
+**Прогресс по roadmap:** пройдено 5 из 6 версий (осталось: 1)
+
 ## Участники
 
 - **Фронтенд #1** — `http://localhost:3000`
