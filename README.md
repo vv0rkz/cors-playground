@@ -1,5 +1,7 @@
 # CORS Playground — v2.0: credentials и wildcard origin
 
+**Прогресс по roadmap:** пройдено 4 из 6 версий (осталось: 2)
+
 ## Участники
 
 - **Фронтенд** — `http://localhost:3000`
